@@ -145,9 +145,48 @@ Por ejemplo al hacer que una clase que guarda la fecha *privada* podemos evitar 
 Otra cosa que vemos en el ejemplo son los ***constructores***. Un constructor es un método que describe como una instancia de una clase es construida. Si no se define un constructor, uno que inicializa miembros de información usando los defaults del lenguaje se genera automáticamente.
 La clase que tenemos de ejemplo (IntCell) define dos constructores. El primero se llama si no se especifica un parámetro y el segundo si un parámetro *int* se administra, y usa este para inicializar el miembro *storedValue*
 
-*(Incluso ahora habiendo leido parte de este tema, todavia no le entiendo)
+*(Incluso ahora habiendo leído parte de este tema, todavía no le entiendo)
 
+### Sintaxis y *Accessors* de Constructor extra
+Aunque las clases funcionan como se estableció, hay algunas sintaxis extra que crean un código mejor. 
+Los cuatro cambios se muestran en el nuevo código.
+```
+1 /**
+2 * A class for simulating an integer memory cell.
+3 */
+4 class IntCell
+5 {
+6 public:
+7 explicit IntCell( int initialValue = 0 )
+8 : storedValue{ initialValue } { }
+9 int read( ) const
+10 { return storedValue; }
+11 void write( int x )
+12 { storedValue = x; }
+13
+14 private:
+15 int storedValue;
+16 };
+```
+Estas son las diferencias:
+
+#### Parámetros *Default*
+
+El constructor *IntCell* representa el **parámetro default**. Como resultado, sigue habiendo dos constructores *IntCell* definidos. uno acepta un *initialValue*, mientras que el otro es el constructor con parámetro 0.
+El valor *default* de 0 significa que 0  se usa si no se da un parámetro como tal. Los *default* se pueden usar en cualquier función pero es mas común en constructores
+
+#### Lista de inicialización
+En la línea 8 del código se puede ver que el constructor *IntCell* us una **lista de inicialización** antes de cuerpo del constructor. Esta lista se usa para inicializar los miembros de información directamente. En este nuevo ejemplo no hay mucha diferencia pero usar este tipo de listas en vez de usar declaraciones de asignación en el cuerpo ahorra tiempo en caso de que los miembros de información son tipos de clases que tienen inicializaciones complejas.
+En algunos casos, por ejemplo, si un miembro de información es *const* (en otras palabras que no se puede cambiar el objeto una vez construido), su valor solo se puede inicializar en una lista.
+Así mismo, si el miembro es si mismo es un tipo de clase que no tiene un constructor de parámetro 0, entonces se *tiene* que inicializar con una lista de inicialización.
+(No comprendo a que se refiere con "zero-parameter constructor")
+
+#### Constructor *explicit*
+El constructor *IntCell* es *explicit*. Todos los constructores de un-parámetro deberian de hacerse *explicit* para evitar 
+Es un constructor que recibe parametros.
+Si no se da parametro se vuelve uno implicito
 
 ## Referencias
 - J. Pérez Porto and A. Gardey, “Logaritmo,” _Definición.de_, 14-Nov-2018. [Online]. Available: https://definicion.de/logaritmo/. [Accessed: 20-Sep-2023].
 - “¿Qué es la aritmética modular?,” Khan Academy. [Online]. Available: https://es.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic. [Accessed: 20-Sep-2023].
+- M. A. Weiss, _Data Structures and Algorithm Analysis in C++_, 4th ed. Upper Saddle River, NJ: Pearson, 2013.
