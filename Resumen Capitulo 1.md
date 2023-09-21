@@ -40,6 +40,114 @@ Un logaritmo es el exponente al cual se necesita elevar una cantidad positiva pa
 De este modo, el logaritmo de un numero es el exponente al cual tiene que elevarse la base para llegar a dicho numero 
 #### Series
 Aquí vemos un breve repaso sobre series 
+Las formulas mas fáciles de recordar son
+![[Pasted image 20230921022935.png]]
+Y el compañero 
+*(No estoy muy seguro cual es la traducción correcta)*
+![[Pasted image 20230921023043.png]]
+Así mismo en la formula anterior, si 0< A < 1, entonces
+![[Pasted image 20230921023110.png]]
+#### Series
+*(No entendí muy bien esta parte en el libro)*
+
+Cuando dividimos dos enteros, tenemos una ecuación que se ve como lo siguiente:
+
+$$
+{A \over B} = Q
+$$
+Residuo:
+$$ R $$
+A es el dividendo  
+B es el divisor  
+Q es el cociente  
+R es el residuo
+
+A veces, solo estamos interesados en cuánto es el **residuo** cuando dividimos A entre B.  
+Para estos casos hay un operador llamado el operador módulo (abreviado como mod).
+
+#### La palabra con *P*
+
+Las 2 formas mas comunes de comprobar las declaraciones en analysis  de estructura-data son Prueba por inducción y Prueba por contradicción.
+La mejor forma de probar que un teorema es falso es presentando un contraargumento 
+###### Prueba por Inducción
+Este tiene dos partes estándar, la primera parte es establecer que el teorema es verdad para unos valores pequeños. Después se tiene que asumir una hipótesis inductiva, esto generalmente significa que el teorema se asume como verdad para todos los casos hasta un limite *k*. Con esta suposición, el teorema se demuestra como real para el valor siguiente, el cual es normalmente $$k+1$$
+###### Prueba por contraargumento
+En este caso lo único que se tiene que hacer es invertir los símbolos de mayor y menor que 
+###### Prueba por Contradicción
+En este tipo de comprobación se procede, asumiendo que el teorema es falso y mostrando que esta suposición implica que alguna propiedad conocida es falsa y por tanto, la suposición original esta equivocada. 
+## Introducción breve a la recursion
+La recursividad básicamente se basa en tener funciones que para solucionarse se hablan a si mismas, o en otras palabras, una función que se define en términos de si misma. 
+Tomemos de ejemplo el siguiente código
+```
+1 int f( int x )
+2 {
+3 	if( x == 0 )
+4 	return 0;
+5	else
+6	return 2 * f( x - 1 ) + x * x;
+7 }
+
+```
+En la Linea 1, se declara la variable *f* que tiene de valor otra variable *x*
+En la Linea 3 se evita redundancia estableciendo que si el valor de *x* es 0, todo el resto de la función también sera 0. Esto también se le conoce como el *caso base* el cual es en donde el valor de la función se sabe directamente sin tener que recurrir a recursion
+La Linea 6 es en donde se hace la recursion, pues *dentro* de la función *f* se habla a *f* para determinar su valor usando el valor de *x*
+## Clases de C++
+### Sintaxis básica de classes
+Una clase en C++ consiste de sus *miembros*. Estos pueden ser información o funciones. Las funciones se les llama *funciones de miembros*. Cada instancia de una clase es un **objeto**. Cada objeto contiene la información los componentes especificaron dentro de la clase. Una función de miembro, se usa para actuar como un objeto, estas funciones a menudo se les llama ***métodos***
+Tomemos de ejemplo el siguiente codigo:
+```
+1 /**
+2 * A class for simulating an integer memory cell.
+3 */
+4 class IntCell
+5 {
+6 public:
+7 /**
+8 * Construct the IntCell.
+9 * Initial value is 0.
+10 */
+11 IntCell( )
+12 { storedValue = 0; }
+13
+14 /**
+15 * Construct the IntCell.
+16 * Initial value is initialValue.
+17 */
+18 IntCell( int initialValue )
+19 { storedValue = initialValue; }
+20
+21 /**
+22 * Return the stored value.
+23 */
+24 int read( )
+25 { return storedValue; }
+26
+27 /**
+28 * Change the stored value to x.
+29 */
+30 void write( int x )
+31 { storedValue = x; }
+32
+33 private:
+34 int storedValue;
+35 };
+```
+Aqui podemos ver la clase ***IntCell**. En esta clase, cada instancia de *IntCell* (un objeto) contiene un solo miembro de informacion llamado *storedValue*.
+Todo lo demas en esta clase en particular es un metodo (aqui son 4)
+Dos de estos metodos son *read* y *write*.
+Los otros dos son metodos especiales conocidos como ***constructores**.
+
+Primero que nada, pongamos nuestra atencion en las dos especificaciones *public* y *private* estas etiquetas determinan la visibilidad de los miembros de la clase, en este ejemplo, todo excepto *storedVallue* es publico. Un miembro que es *publico* puede ser accedido por cualquier metodo en cualquier clase, mientras que uno *privado* solo puede ser usado por metodos en su clase.
+Normalmente, miembros de informacion se declaran en *private*.
+Al usar miembros *privados* podemos cambiar la representación interna del objeto sin que afecte otras partes del programa que usen el objeto. Los usuarios de la clase no necesitan (ni deberían) que saber los detalles internos de como esta implementada una clase, pues esto en la mayoría de casos genera problemas.
+Por ejemplo al hacer que una clase que guarda la fecha *privada* podemos evitar que alguien por fuera ponga fechas imposibles como *Febrero 30*.
+
+Otra cosa que vemos en el ejemplo son los ***constructores***. Un constructor es un método que describe como una instancia de una clase es construida. Si no se define un constructor, uno que inicializa miembros de información usando los defaults del lenguaje se genera automáticamente.
+La clase que tenemos de ejemplo (IntCell) define dos constructores. El primero se llama si no se especifica un parámetro y el segundo si un parámetro *int* se administra, y usa este para inicializar el miembro *storedValue*
+
+*(Incluso ahora habiendo leido parte de este tema, todavia no le entiendo)
+
 
 ## Referencias
-https://definicion.de/logaritmo/
+- J. Pérez Porto and A. Gardey, “Logaritmo,” _Definición.de_, 14-Nov-2018. [Online]. Available: https://definicion.de/logaritmo/. [Accessed: 20-Sep-2023].
+- “¿Qué es la aritmética modular?,” Khan Academy. [Online]. Available: https://es.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic. [Accessed: 20-Sep-2023].
